@@ -1,0 +1,145 @@
+<h2 mat-dialog-title>Screening de {{searchQuery}}</h2>
+
+<mat-dialog-content>
+
+    <div style="color: white;" [formGroup]="pages">
+        <h4>Metodo de WebScraping para el Proveedor {{searchQuery}}</h4>
+        <mat-grid-list cols="3" rowHeight="10vh">
+            <mat-grid-tile>
+                <mat-checkbox formControlName="offshore">Offshore Leaks Database</mat-checkbox>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-checkbox formControlName="worldbank">The World Bank Debarred Firms</mat-checkbox>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-checkbox formControlName="sanction">OFAC Sanctions</mat-checkbox>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <button mat-mini-fab matTooltip="Buscar Proveedor" color="primary" style="margin: 1vw;" 
+                (click)="screeningProveedor(authLogin, authPass, searchQuery)" 
+                [disabled]="!(pages.value.offshore || pages.value.worldbank || pages.value.sanction)">
+            <i class="material-icons">content_paste_search</i>
+        </button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Offshore Leaks Database -->
+    <div *ngIf="pages.value.offshore && dataLoaded">
+        <h3>Offshore Leaks Database</h3>
+        <table mat-table [dataSource]="dataSourceOffshore" class="mat-elevation-z8">
+    
+        <ng-container matColumnDef="entity">
+            <th mat-header-cell *matHeaderCellDef> Entidad </th>
+            <td mat-cell *matCellDef="let element"> {{element.entity}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="jurisdiction">
+            <th mat-header-cell *matHeaderCellDef> Jurisdiccion </th>
+            <td mat-cell *matCellDef="let element"> {{element.jurisdiction}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="linkedTo">
+            <th mat-header-cell *matHeaderCellDef> Conexion </th>
+            <td mat-cell *matCellDef="let element"> {{element.linkedTo}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="dataFrom">
+            <th mat-header-cell *matHeaderCellDef> Extraido de </th>
+            <td mat-cell *matCellDef="let element"> {{element.dataFrom}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsOffshore"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsOffshore;"></tr>
+        </table>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- The World Bank -->
+    <div *ngIf="pages.value.worldbank && dataLoaded">
+        <h3>The World Bank Debarred Firms</h3>
+        <table mat-table [dataSource]="dataSourceWorldbank" class="mat-elevation-z8">
+    
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Direccion </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef> Conexion </th>
+            <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="periodFrom">
+            <th mat-header-cell *matHeaderCellDef> Inicio de Periodo </th>
+            <td mat-cell *matCellDef="let element"> {{element.periodFrom}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="periodTo">
+            <th mat-header-cell *matHeaderCellDef> Fin de Periodo </th>
+            <td mat-cell *matCellDef="let element"> {{element.periodTo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="grounds">
+            <th mat-header-cell *matHeaderCellDef> Base </th>
+            <td mat-cell *matCellDef="let element"> {{element.grounds}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsOffshore"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsOffshore;"></tr>
+        </table>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- OFAC -->
+    <div *ngIf="pages.value.sanction && dataLoaded">
+        <h3>OFAC Sanctions</h3>
+        <table mat-table [dataSource]="dataSourceOffshore" class="mat-elevation-z8">
+    
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Direccion </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef> Tipo </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="programs">
+            <th mat-header-cell *matHeaderCellDef> Programas </th>
+            <td mat-cell *matCellDef="let element"> {{element.programs}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="list">
+            <th mat-header-cell *matHeaderCellDef> Lista </th>
+            <td mat-cell *matCellDef="let element"> {{element.list}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef> Puntuacion </th>
+            <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsOffshore"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsOffshore;"></tr>
+        </table>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Volver</button>
+</mat-dialog-actions>

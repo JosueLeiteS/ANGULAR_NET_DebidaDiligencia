@@ -1,0 +1,10 @@
+.middle-screen-card {
+    flex: 1;
+    border-radius: 0;
+    margin: 1vw;
+    background-color: var(--accent-color);;
+}
+
+.matForm {
+    padding: 1vw;
+}

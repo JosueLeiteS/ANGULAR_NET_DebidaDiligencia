@@ -1,0 +1,110 @@
+<form [formGroup]="formCrearProveedor" (ngSubmit)="TESTenviar()">
+    <mat-card class="middle-screen-card">
+
+        <mat-grid-list cols="6" rowHeight="10vh" *ngIf="idProveedor != 0">
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Id del provedoor</mat-label>
+                    <input matInput disabled value="{{idProveedor}}">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="2" rowHeight="10vh">
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Razon Social</mat-label>
+                    <input matInput formControlName="razonSocial">
+                    <mat-error *ngIf="formCrearProveedor.controls['razonSocial'].hasError('pattern')">Razon Social solo acepta valores alfanumericos</mat-error>
+                    <mat-error *ngIf="formCrearProveedor.controls['razonSocial'].hasError('required')">Razon Social es <strong>requerida</strong></mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Nombre Comercial</mat-label>
+                    <input matInput formControlName="nombreComercial">
+                    <mat-error *ngIf="formCrearProveedor.controls['nombreComercial'].hasError('pattern')">Nombre Comercial solo acepta valores alfanumericos</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="1" rowHeight="10vh">
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Identificacion Tributaria</mat-label>
+                    <input matInput formControlName="identificacionTributaria">
+                    <mat-error *ngIf="formCrearProveedor.controls['identificacionTributaria'].hasError('maxlength')">Identificacion Tributaria tiene un maximo de 11 digitos</mat-error>
+                    <mat-error *ngIf="formCrearProveedor.controls['identificacionTributaria'].hasError('pattern')">Identificacion Tributaria solo acepta valores numericos</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="3" rowHeight="10vh">
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Numero Telefonico</mat-label>
+                    <input matInput formControlName="numeroTelefonico">
+                    <mat-error *ngIf="formCrearProveedor.controls['numeroTelefonico'].hasError('maxlength')">Numero Telefonico tiene un maximo de 20 digitos</mat-error>
+                    <mat-error *ngIf="formCrearProveedor.controls['numeroTelefonico'].hasError('pattern')">Numero Telefonico solo acepta valores numericos</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Correo Electronico</mat-label>
+                    <input matInput formControlName="correoElectronico">
+                    <mat-error *ngIf="formCrearProveedor.controls['correoElectronico'].hasError('pattern')">Estructura de Correo Electronico no es valida</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Sitio Web</mat-label>
+                    <input matInput formControlName="sitioWeb">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="4" rowHeight="10vh">
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="matForm">
+                    <mat-label>Direccion Fisica</mat-label>
+                    <input matInput formControlName="direccionFisica">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Pais</mat-label>
+                    <input type="text" matInput [matAutocomplete]="auto" formControlName="pais">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.country_code">
+                            {{option.country_code}} - {{option.country_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list cols="3" rowHeight="10vh">
+            <mat-grid-tile>
+                <mat-form-field class="matForm">
+                    <mat-label>Facturacion Anual en Dolares</mat-label>
+                    <input matInput formControlName="facturacionAnualDolares">
+                    <mat-error *ngIf="formCrearProveedor.controls['facturacionAnualDolares'].hasError('pattern')">Facturacion Anual sigue una estructura XX.XX</mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-card-actions class="card-action">
+            <button mat-mini-fab matTooltip="Warn" color="accent" style="margin-right: 1vw;" (click)="routeListarProveedor()">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            <button mat-mini-fab matTooltip="Warn" color="primary" type="submit" [disabled]="formCrearProveedor.valid">
+                <i class="material-icons">save</i>
+            </button>
+        </mat-card-actions>
+
+    </mat-card>
+</form>
