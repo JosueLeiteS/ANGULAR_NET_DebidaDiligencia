@@ -98,10 +98,10 @@
         </mat-grid-list>
 
         <mat-card-actions class="card-action">
-            <button mat-mini-fab matTooltip="Warn" color="accent" style="margin-right: 1vw;" (click)="routeListarProveedor()">
+            <button mat-mini-fab matTooltip="Volver" color="accent" style="margin-right: 1vw;" (click)="routeListarProveedor()">
                 <i class="material-icons">arrow_back</i>
             </button>
-            <button mat-mini-fab matTooltip="Warn" color="primary" type="submit" [disabled]="formCrearProveedor.valid">
+            <button mat-mini-fab matTooltip="Guardar" color="primary" type="submit" [disabled]="!formCrearProveedor.valid">
                 <i class="material-icons">save</i>
             </button>
         </mat-card-actions>
